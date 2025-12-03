@@ -130,8 +130,6 @@ const getCityWeather = (locationName) => {
 ;
 
 // 為需要的城市建立 handler
-const getTaipeiWeather = getCityWeather("台北市");
-const getTaichungWeather = getCityWeather("台中市");
 const getChanghuaWeather = getCityWeather("彰化縣");
 const getKaohsiungWeather = getCityWeather("高雄市");
 const getYilanWeather = getCityWeather("宜蘭縣");
@@ -141,8 +139,6 @@ app.get("/", (req, res) => {
   res.json({
     message: "歡迎使用 CWA 天氣預報 API",
     endpoints: {
-      taipei: "/api/weather/taipei",
-      taichung: "/api/weather/taichung",
       changhua: "/api/weather/changhua",
       kaohsiung: "/api/weather/kaohsiung",
       yilan: "/api/weather/yilan",
@@ -155,10 +151,6 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
 
-// 取得台北天氣預報
-app.get("/api/weather/taipei", getTaipeiWeather);
-// 取得台中天氣預報
-app.get("/api/weather/taichung", getTaichungWeather);
 // 取得彰化天氣預報
 app.get("/api/weather/changhua", getChanghuaWeather);
 // 取得高雄天氣預報
