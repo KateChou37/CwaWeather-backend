@@ -72,7 +72,7 @@ GET /
 {
   "message": "歡迎使用 CWA 天氣預報 API",
   "endpoints": {
-    "kaohsiung": "/api/weather/kaohsiung",
+    "taipei": "/api/weather/taipei",
     "health": "/api/health"
   }
 }
@@ -96,7 +96,7 @@ GET /api/health
 ### 3. 取得高雄天氣預報
 
 ```
-GET /api/weather/kaohsiung
+GET /api/weather/taipei
 ```
 
 回應範例：
@@ -105,7 +105,7 @@ GET /api/weather/kaohsiung
 {
   "success": true,
   "data": {
-    "city": "高雄市",
+    "city": "台北市",
     "updateTime": "資料更新時間說明",
     "forecasts": [
       {
