@@ -42,7 +42,7 @@ const getKaohsiungWeather = async (req, res) => {
       }
     );
 
-    // 取得高雄市的天氣資料
+    // 取得台北市的天氣資料
     const locationData = response.data.records.location[0];
 
     if (!locationData) {
@@ -131,7 +131,7 @@ app.get("/", (req, res) => {
   res.json({
     message: "歡迎使用 CWA 天氣預報 API",
     endpoints: {
-      kaohsiung: "/api/weather/kaohsiung",
+      kaohsiung: "/api/weather/taipei",
       health: "/api/health",
     },
   });
@@ -141,8 +141,8 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
 
-// 取得高雄天氣預報
-app.get("/api/weather/kaohsiung", getKaohsiungWeather);
+// 取得台北天氣預報
+app.get("/api/weather/taipei", getTaipeiWeather);
 
 // Error handling middleware
 app.use((err, req, res, next) => {
