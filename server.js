@@ -109,30 +109,34 @@ const getTaipeiWeather = async (req, res) => {
   } catch (error) {
     console.error("取得天氣資料失敗:", error.message);
 
-    if (error.response) {
-      // API 回應錯誤
-      return res.status(error.response.status).json({
-        error: "CWA API 錯誤",
-        message: error.response.data.message || "無法取得天氣資料",
-        details: error.response.data,
+      if (error.response) {
+        // API 回應錯誤
+        return res.status(error.response.status).json({
+          error: "CWA API 錯誤",
+          message: error.response.data.message || "無法取得天氣資料",
+          details: error.response.data,
+        });
+      }
+
+      // 其他錯誤
+      res.status(500).json({
+        error: "伺服器錯誤",
+        message: "無法取得天氣資料，請稍後再試",
       });
     }
+  };
+;
 
-    // 其他錯誤
-    res.status(500).json({
-      error: "伺服器錯誤",
-      message: "無法取得天氣資料，請稍後再試",
-    });
-  }
-};
+// 為需要的城市建立 handler（移除台北與台中）
+const getChanghuaWeather = getCityWeather("彰化縣");
+const getKaohsiungWeather = getCityWeather("高雄市");
+const getYilanWeather = getCityWeather("宜蘭縣");
 
 // Routes
 app.get("/", (req, res) => {
   res.json({
     message: "歡迎使用 CWA 天氣預報 API",
     endpoints: {
-      taipei: "/api/weather/taipei",
-      taichung: "/api/weather/taichung",
       changhua: "/api/weather/changhua",
       kaohsiung: "/api/weather/kaohsiung",
       yilan: "/api/weather/yilan",
@@ -145,10 +149,7 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", timestamp: new Date().toISOString() });
 });
 
-// 取得台北天氣預報
-app.get("/api/weather/taipei", getTaipeiWeather);
-// 取得台中天氣預報
-app.get("/api/weather/taichung", getTaichungWeather);
+
 // 取得彰化天氣預報
 app.get("/api/weather/changhua", getChanghuaWeather);
 // 取得高雄天氣預報
